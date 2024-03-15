@@ -7,7 +7,7 @@ app = Flask(__name__, template_folder='templates')
 # GET request
 @app.route('/api/history', methods=['GET'])
 def api():
-    data = request.get_json()
+    data = "History data from file here..."
     return jsonify(data)
 
 # GET request
