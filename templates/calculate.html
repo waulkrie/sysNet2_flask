@@ -1,21 +1,18 @@
-<html>
-<body>	 
-	<form action = "http://localhost:5000/calculate" method = "post">
+
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{% block title %} Calculator {% endblock %}</h1>
+	<html>
+		<body>	 
+			<form action = "http://localhost:5000/calculate" method = "post">
+		<p>Enter Expression:</p>
 		
-
-<p>Enter Name:</p>
-
-
+		<p><input type = "text" name = "expr" /></p>
+		<p><input type = "submit" value = "submit" /></p>
 		
-
-<p><input type = "text" name = "nm" /></p>
-
-
-		
-
-<p><input type = "submit" value = "submit" /></p>
-
-
-	</form>	 
-</body>
-</html>
+			</form>	 
+		</body>
+		</html>
+    <h3>{{ utc_date }}</h3>
+{% endblock %}

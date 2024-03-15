@@ -1,6 +1,7 @@
 from flask import Flask, request, url_for, jsonify, render_template, redirect
+import datetime
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='templates')
 
 
 # GET request
@@ -9,21 +10,29 @@ def api():
     data = request.get_json()
     return jsonify(data)
 
+# GET request
+@app.route('/history', methods=['GET'])
+def history():
+    data = request.get_json()
+    return render_template('/history.html', data=data)
+
 # POST request
-@app.route('/calculate')
+@app.route('/calculate', methods=['GET', 'POST'])
 def calc(data = None):
     if request.method == 'POST':
-        data = request.get_json()
+        history = request.form['expr']
+        print("HistoryP: ", history)
+        return redirect(url_for('calc'))
     else:
-        data = None
-    return render_template('templates/calculate.html', data=data)
+        history = None
+        print("HistoryG: ", history)
+        return render_template('/calculate.html', history=history)
 
 
 # GET request
 @app.route('/', methods=['GET'])
 def index():
-    return redirect("/calculate")
-
+    return render_template('index.html', utc_date=datetime.datetime.utcnow())
 
 
 
