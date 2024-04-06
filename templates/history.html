@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Calculator - FlaskApp</title>
+  </head>
+  <body>
+    <h1>History</h1>
+    <div>
+      <p>History :</p>
+      {% if history %} {% for elm in history %}
+      <p>{{ elm }}</p>
+      {% endfor %} {% endif %}
+    </div>
+    <p><a href="{{ url_for('calc') }}">Back to Calculate</a></p>
+  </body>
+</html>

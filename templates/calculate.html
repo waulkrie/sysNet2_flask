@@ -1,18 +1,23 @@
-
-{% extends 'base.html' %}
-
-{% block content %}
-    <h1>{% block title %} Calculator {% endblock %}</h1>
-	<html>
-		<body>	 
-			<form action = "http://localhost:5000/calculate" method = "post">
-		<p>Enter Expression:</p>
-		
-		<p><input type = "text" name = "expr" /></p>
-		<p><input type = "submit" value = "submit" /></p>
-		
-			</form>	 
-		</body>
-		</html>
-    <h3>{{ utc_date }}</h3>
-{% endblock %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Calculator - FlaskApp</title>
+  </head>
+  <body>
+    <h1>Calculator</h1>
+    <form action="http://localhost:5000/calculate" method="post">
+      <p>Enter Expression:</p>
+      <p><input type="text" name="expr" /></p>
+      <p><input type="submit" value="submit" /></p>
+    </form>
+    <div>
+      {% if result %}
+      <p>Exp : {{ expr }}</p>
+      <p>Result: {{ result }}</p>
+      {% endif %}
+    </div>
+    <p><a href="{{ url_for('history') }}">View History</a></p>
+    <p>Time: {{ utc_date }}</p>
+  </body>
+</html>
