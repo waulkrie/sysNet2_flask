@@ -12,7 +12,8 @@ def write_to_file(data):
 def read_from_file():
     with open('history.txt', 'r') as file:
         return file.readlines()
-    
+
+
 #error catching
 @app.errorhandler(404)   
 def not_found(e): 
@@ -31,6 +32,7 @@ def api():
 # GET request to return calculation history
 @app.route('/history', methods=['GET'])
 def history():
+    print('serving \'history.html\'')
     history = read_from_file()
     return render_template('/history.html', history=history)
 
@@ -40,15 +42,17 @@ def history():
 def calc(data = None):
     if request.method == 'POST':
         expr = request.form['expr']
+        print('Calculating: ', expr)
         try :
-            result = eval(expr) # executes valid python code, irl this is a vulnerability
+            # executes valid python code, irl this is a vulnerability
+            result = str(eval(expr)) # cast to string so flask can see its a 0 and not None
         except:
             result = "Invalid expression"
         write_to_file(expr + ' = ' + str(result))
-        print("Serving History Post: ", history)
+        print('Serving Post \'calculate.html\'')
         return render_template('/calculate.html', expr=expr, result=result, utc_date=datetime.now(timezone.utc))
     else:
-        print('Serving \'calculate.html\'')
+        print('Serving Get \'calculate.html\'')
         return render_template('/calculate.html', utc_date=datetime.now(timezone.utc))
 
 
@@ -61,3 +65,5 @@ def index():
 
 if __name__ == '__main__':
     app.run(debug=True)
+
+print('Server stopped')
